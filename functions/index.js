@@ -1,9 +1,13 @@
-const functions = require("firebase-functions");
+const functions = require('firebase-functions');
+const cors = require('cors');
+const app = require('express')();
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+const { uploadAudio } = require('./recordController');
+app.use(cors());
+
+app.post('/uploadAudio', uploadAudio);
+app.get('/helloWorld', (req, res) => {
+  return res.json({ data: 'hello world' });
+});
+
+exports.api = functions.region('us-central1').https.onRequest(app);
