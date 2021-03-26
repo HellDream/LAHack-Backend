@@ -1,7 +1,6 @@
 const { uuid } = require('uuidv4');
 const config = require('./utils/config');
-const admin = require('firebase-admin');
-admin.initializeApp();
+const { admin } = require('./utils/admin');
 const uploadAudio = async (req, res) => {
   console.log(req.body.userId);
   const BusBoy = require('busboy');
@@ -70,6 +69,7 @@ const createRecord = async (recordMetaData, audioUrl, audioPath) => {
     lat: Number(recordMetaData.lat),
     audioUrl,
     audioPath,
+    text: '',
   };
   const doc = await admin.firestore().collection('records').add(newRecord);
   console.log(doc);
