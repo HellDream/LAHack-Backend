@@ -87,6 +87,8 @@ const createRecord = async (recordMetaData, audioUrl, audioPath) => {
     audioUrl,
     audioPath,
     text: '',
+    encoding: recordMetaData.encoding || 'FLAC',
+    sampleRateHertz: Number(recordMetaData.rateHertz) || 16000,
   };
   const doc = await admin.firestore().collection('records').add(newRecord);
   console.log(doc);

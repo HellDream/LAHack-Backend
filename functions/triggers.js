@@ -13,7 +13,9 @@ const audioConverterTrigger = functions.firestore
       console.log('audio path not found');
       return;
     }
-    speechTextConverter(audioPath, 'FLAC', 48000)
+    const encoding = doc.encoding ? doc.encoding : 'FLAC';
+    const sampleRateHertz = doc.sampleRateHertz ? doc.sampleRateHertz : 48000;
+    speechTextConverter(audioPath, encoding, sampleRateHertz)
       .then((translation) => {
         let text = '';
         if (!translation || translation === '') {

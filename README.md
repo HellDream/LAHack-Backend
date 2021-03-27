@@ -54,6 +54,8 @@ Request:
   "userId":"userId",
   "lon": 123.11,
   "lat": 45.67,
+  "encoding": "FLAC" || "AMR_WB" || "AMR",
+  "rateHertz": 48000
 }
 
 Response:
@@ -63,7 +65,33 @@ data: none
 ```
 
 - Upload User Data:
-  T.B.D
+
+```
+Method: POST
+Content-Type: application/json
+URL: /users
+
+Request:
+{
+  "userId":"userId123",
+  "firstName":"abc",
+  "lastName":"cde",
+  "email": "email@123.com",
+  "createdTime":"createdTime"
+}
+
+
+Response:
+statusCode: 201 or 500
+data:
+{
+  "userId":"userId123",
+  "firstName":"abc",
+  "lastName":"cde",
+  "email": "email@123.com",
+  "createdTime":"createdTime"
+}
+```
 
 ## Tables
 
@@ -92,5 +120,7 @@ metadata:
 "lat": 45.67,
 "audioUrl": "https://firebasestorage.googleapis.com/v0/b/lahacks-82b71.appspot.com/o/792227734297.mp3?alt=media&token=dbe57f34-7266-438c-8f72-fdbfc2ec3815",
 "audioPath": "gs://lahacks-82b71.appspot.com/792227734297.mp3",
-"text": "text"
+"text": "text",
+"encoding": "FLAC",
+"sampleRateHertz": 16000
 }
