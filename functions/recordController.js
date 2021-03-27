@@ -1,6 +1,6 @@
 const { uuid } = require('uuidv4');
 const config = require('./utils/config');
-const { admin } = require('./utils/admin');
+const { admin, db } = require('./utils/admin');
 const uploadAudio = async (req, res) => {
   console.log(req.body.userId);
   const BusBoy = require('busboy');
@@ -62,6 +62,13 @@ const uploadAudio = async (req, res) => {
   busboy.end(req.rawBody);
 };
 
+const getAllRecords = async (req, res) => {
+  const recordCollection = db.collection('records');
+  const snapshot = await recordCollection.get();
+  const data = snapshot.docs.map((doc) => doc.data());
+  return res.status(200).json(data);
+};
+
 const createRecord = async (recordMetaData, audioUrl, audioPath) => {
   let newRecord = {
     userId: recordMetaData.userId,
@@ -77,3 +84,4 @@ const createRecord = async (recordMetaData, audioUrl, audioPath) => {
 };
 
 exports.uploadAudio = uploadAudio;
+exports.getAllRecords = getAllRecords;
