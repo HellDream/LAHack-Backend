@@ -46,7 +46,7 @@ Response:
 ```
 Method: POST
 Content-Type: multipart/form-data
-URL: /uploadAudio
+URL: /records
 
 Request:
 {

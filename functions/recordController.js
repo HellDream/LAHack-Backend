@@ -69,6 +69,16 @@ const getAllRecords = async (req, res) => {
   return res.status(200).json(data);
 };
 
+const getRecordByDocumentId = async (req, res) => {
+  const documentId = req.params.documentId;
+  console.log(documentId);
+  if (!documentId) {
+    return res.status(400).json({ error: 'Document Id is required' });
+  }
+  const doc = await db.collection('records').doc(documentId).get();
+  return res.status(200).json(doc.data());
+};
+
 const createRecord = async (recordMetaData, audioUrl, audioPath) => {
   let newRecord = {
     userId: recordMetaData.userId,
@@ -85,3 +95,4 @@ const createRecord = async (recordMetaData, audioUrl, audioPath) => {
 
 exports.uploadAudio = uploadAudio;
 exports.getAllRecords = getAllRecords;
+exports.getRecordByDocumentId = getRecordByDocumentId;
